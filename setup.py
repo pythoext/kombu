@@ -13,10 +13,7 @@ PY3 = sys.version_info[0] == 3
 if sys.version_info < (2, 6):
     raise Exception('Kombu requires Python 2.6 or higher.')
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup  # noqa
+from promebuilder import setup
 
 # -- Parse meta
 re_meta = re.compile(r'__(\w+?)__\s*=\s*(.*)')
@@ -142,7 +139,7 @@ extras_require = extra['extras_require'] = {
     'qpid': extras('qpid.txt'),
 }
 
-setup(
+setup(dict(
     name='kombu',
     version=meta['VERSION'],
     description=meta['doc'],
@@ -177,4 +174,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     long_description=long_description,
-    **extra)
+    **extra
+))
